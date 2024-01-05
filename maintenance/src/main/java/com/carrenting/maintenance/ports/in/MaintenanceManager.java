@@ -8,11 +8,17 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MaintenanceManager {
-    // FUNC-WART-010 - Planung von Fahrzeugwartungen
+    // ------------------------------[FUNC-WART-010 - Planung von Fahrzeugwartungen]-------------------------------------
     //Erstellung der Wartung, Fahrzeugzuweisung
     Maintenance scheduleMaintenance(Maintenance maintenance);
 
-    // FUNC-WART-020 - Verfolgung des Wartungsstatus
+
+
+
+
+
+    // ------------------------------[FUNC-WART-020 - Verfolgung des Wartungsstatus]-------------------------------------
+
     // Aktualisierung des Wartungsstatus _ Kann von einem Werkstaattsmitarbeiter angewendet werden
     Maintenance updateMaintenanceStatus(int maintenanceId, Maintenance maintenance);
 

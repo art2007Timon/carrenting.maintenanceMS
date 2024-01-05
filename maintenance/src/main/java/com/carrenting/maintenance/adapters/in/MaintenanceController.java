@@ -20,33 +20,24 @@ public class MaintenanceController {
         this.maintenanceManager = maintenanceManager;
     }
 
-    //Alle Fahrzeugen die in Wartung befinden
-    //GET: /api/maintenance/
-    @GetMapping()
-    public ResponseEntity<List<Maintenance>> getAllMaintenances() {
-        List<Maintenance> аllMaintenances = maintenanceManager.getAllMaintenances();
-        return ResponseEntity.ok(аllMaintenances);
-    }
 
-
-    // Wartungsdetails nach ID
-    //GET: /api/maintenance/1
-    @GetMapping("/{id}")
-    public ResponseEntity<Maintenance> getMaintenanceById(@PathVariable int id) {
-        Optional<Maintenance> maintenance = maintenanceManager.getMaintenanceById(id);
-        return maintenance.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
-    }
-
-
+    // ------------------------------[FUNC-WART-010 - Planung von Fahrzeugwartungen]-------------------------------------
     //Erstellung der Wartung, Fahrzeugzuweisung
     //POST: /api/maintenance
     //Body: { "carID": 1, "startDate": "2023-01-01", "endDate": "2023-01-03" }
+    //Geht nicht -> muss in der Reservierung Liste mit verfuegbaren Autos implementiert werden (getAvailableCars())
     @PostMapping
     public ResponseEntity<Maintenance> scheduleMaintenance(@RequestBody Maintenance maintenance) {
         Maintenance newMaintenance = maintenanceManager.scheduleMaintenance(maintenance);
         return ResponseEntity.ok(newMaintenance);
     }
 
+
+
+
+
+
+    // ------------------------------[FUNC-WART-020 - Verfolgung des Wartungsstatus]-------------------------------------
 
     // Aktualisierung des Wartungsstatus _ Kann von einem Werkstaattsmitarbeiter angewendet werden
     //PUT: /api/maintenance/1
@@ -57,10 +48,31 @@ public class MaintenanceController {
         return ResponseEntity.ok(updatedMaintenance);
     }
 
+    // Wartungsdetails nach ID
+    //GET: /api/maintenance/1
+    @GetMapping("/{id}")
+    public ResponseEntity<Maintenance> getMaintenanceById(@PathVariable int id) {
+        Optional<Maintenance> maintenance = maintenanceManager.getMaintenanceById(id);
+        return maintenance.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+
+    //Alle Fahrzeugen die in Wartung befinden
+    //GET: /api/maintenance/
+    @GetMapping()
+    public ResponseEntity<List<Maintenance>> getAllMaintenances() {
+        List<Maintenance> аllMaintenances = maintenanceManager.getAllMaintenances();
+        return ResponseEntity.ok(аllMaintenances);
+    }
+
     //Wartungen nach ID loeschen
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMaintenance(@PathVariable int id) {
         maintenanceManager.deleteMaintenance(id);
         return ResponseEntity.ok().build();
     }
+
+
+
+
+
 }
