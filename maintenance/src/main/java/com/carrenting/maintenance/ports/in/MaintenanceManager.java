@@ -13,10 +13,6 @@ public interface MaintenanceManager {
     Maintenance scheduleMaintenance(Maintenance maintenance);
 
 
-
-
-
-
     // ------------------------------[FUNC-WART-020 - Verfolgung des Wartungsstatus]-------------------------------------
 
     // Aktualisierung des Wartungsstatus _ Kann von einem Werkstaattsmitarbeiter angewendet werden

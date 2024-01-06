@@ -25,7 +25,6 @@ public class MaintenanceController {
     //Erstellung der Wartung, Fahrzeugzuweisung
     //POST: /api/maintenance
     //Body: { "carID": 1, "startDate": "2023-01-01", "endDate": "2023-01-03" }
-    //Geht nicht -> muss in der Reservierung Liste mit verfuegbaren Autos implementiert werden (getAvailableCars())
     @PostMapping
     public ResponseEntity<Maintenance> scheduleMaintenance(@RequestBody Maintenance maintenance) {
         Maintenance newMaintenance = maintenanceManager.scheduleMaintenance(maintenance);
