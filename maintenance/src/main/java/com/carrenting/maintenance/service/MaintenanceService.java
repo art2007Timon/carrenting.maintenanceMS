@@ -1,5 +1,6 @@
 package com.carrenting.maintenance.service;
 
+import com.carrenting.maintenance.dto.CarDto;
 import com.carrenting.maintenance.feign.ReservationClient;
 import com.carrenting.maintenance.ports.data.Maintenance;
 import com.carrenting.maintenance.ports.in.MaintenanceManager;
@@ -23,15 +24,19 @@ public class MaintenanceService implements MaintenanceManager {
 
     // FUNC-WART-010 - Planung von Fahrzeugwartungen
     //Erstellung der Wartung, Fahrzeugzuweisung
-    @Override
+    @Override  //Falss Fahrzeug nicht verfügbar, wird nicht in die Wartungsliste genommen
     public Maintenance scheduleMaintenance(Maintenance maintenance) {
-        List<Integer> availableCars = reservationClient.getAvailableCars(); //Bekommt vom Microsrvises Reservation die liste mit verfuegbaren Fahrzeugen
-        if (availableCars.contains(maintenance.getCarID())) {               //Prueft, ob Auto verfügbar ist
+        List<CarDto> availableCars = reservationClient.getAvailableVehicle(); // Verfügbare Fahrzeuge
+        boolean isCarAvailable = availableCars.stream()
+                .anyMatch(car -> car.getCarID() == maintenance.getCarID()); // Fahrzeuge in der WArtungsliste
+
+        if (isCarAvailable) {
             return maintenanceRepository.save(maintenance);
         } else {
             throw new IllegalStateException("Car is not available for maintenance");
         }
     }
+
 
     // FUNC-WART-020 - Verfolgung des Wartungsstatus
     // Aktualisierung des Wartungsstatus _ Kann von einem Werkstaattsmitarbeiter angewendet werden

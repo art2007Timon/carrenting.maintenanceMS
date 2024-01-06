@@ -70,9 +70,4 @@ public class MaintenanceController {
         maintenanceManager.deleteMaintenance(id);
         return ResponseEntity.ok().build();
     }
-
-
-
-
-
 }
