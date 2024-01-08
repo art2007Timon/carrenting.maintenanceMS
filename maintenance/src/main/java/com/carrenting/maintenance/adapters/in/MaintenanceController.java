@@ -23,7 +23,7 @@ public class MaintenanceController {
 
     // ------------------------------[FUNC-WART-010 - Planung von Fahrzeugwartungen]-------------------------------------
     //Erstellung der Wartung, Fahrzeugzuweisung
-    //POST: /api/maintenance
+    //POST: http://localhost:8084/api/maintenance
     //Body: { "carID": 1, "startDate": "2023-01-01", "endDate": "2023-01-03" }
     @PostMapping
     public ResponseEntity<Maintenance> scheduleMaintenance(@RequestBody Maintenance maintenance) {
