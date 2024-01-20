@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 //interaktionen mit dem MS reservation
-@FeignClient(name = "reservation-service", url = "http://localhost:8083")
+@FeignClient(name = "reservation-service", url = "http://reservation:8083")
 public interface ReservationClient {
     @GetMapping("/api/reservation/availableVehicle")
     List<CarDto> getAvailableVehicle();
